@@ -20,6 +20,6 @@ public class Test extends TestCase {
 		ApplicationContext ac = new ClassPathXmlApplicationContext(
 				"beans_mybatis.xml");
 		BlogBiz ub = (BlogBiz) ac.getBean("blogBizImpl");
-		System.out.println("当前转发数" + ub.relay(2L, 3));
+		System.out.println("当前转发数" + ub.relay(2L, 100));
 	}
 }

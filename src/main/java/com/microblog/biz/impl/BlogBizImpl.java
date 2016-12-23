@@ -37,15 +37,16 @@ public class BlogBizImpl extends BaseBiz implements BlogBiz {
 	public String relay(Long id, int uid) {
 		// 当用户没有转发，则转发数+1，redis中用户字段+1；已转发，则不允许转发
 		if (id > 0 && uid > 0) {
+			String num = (String) this.baseDao.getKey("user:relay" + id);
 			if (this.baseDao.getKey(id + "user:relayid" + uid) == null
 					|| Integer.parseInt((String) this.baseDao.getKey(id
 							+ "user:relayid" + uid)) == 0) {
 				this.baseDao.incr("user:relay" + id);
 				this.baseDao.incr(id + "user:relayid" + uid);
-				String num = (String) this.baseDao.getKey("user:relay" + id);
+				num = (String) this.baseDao.getKey("user:relay" + id);
 				return num;
 			} else {
-				return null;
+				return num;
 			}
 		} else {
 			return null;
